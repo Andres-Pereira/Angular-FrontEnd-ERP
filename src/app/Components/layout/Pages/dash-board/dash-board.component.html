@@ -1,0 +1,279 @@
+<h1 style="margin: 20px 0px 0px 40px;">Medidores de rendimiento en ventas</h1>
+<mat-card style="margin: 20px 40px 30px 40px">
+<form [formGroup]="formularioDashboard" (ngSubmit)="obtenerDatos()">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Rendimiento por:</mat-label>
+            <mat-select formControlName="buscarPor">
+            <mat-option *ngFor="let item of opcionesBusqueda" [value]="item.value">
+                {{item.desripcion}}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" style="margin-left: 5px;" appearance="fill" *ngIf="formularioDashboard.value.buscarPor == 'intervalo' ">
+            <mat-label>Intervalo</mat-label>
+            <mat-select formControlName="intervalo">
+                <mat-option value="7">Últimos 7 días</mat-option>
+                <mat-option value="15">Últimos 15 días</mat-option>
+                <mat-option value="30">Últimos 30 días</mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" style="margin-left: 5px;" appearance="fill" *ngIf="formularioDashboard.value.buscarPor == 'mes' ">
+            <mat-label>Mes</mat-label>
+            <mat-select formControlName="mes">
+                <mat-option value="1">Enero</mat-option>
+                <mat-option value="2">Febrero</mat-option>
+                <mat-option value="3">Marzo</mat-option>
+                <mat-option value="4">Abril</mat-option>
+                <mat-option value="5">Mayo</mat-option>
+                <mat-option value="6">Junio</mat-option>
+                <mat-option value="7">Julio</mat-option>
+                <mat-option value="8">Agosto</mat-option>
+                <mat-option value="9">Septiembre</mat-option>
+                <mat-option value="10">Octubre</mat-option>
+                <mat-option value="11">Noviembre</mat-option>
+                <mat-option value="12">Diciembre</mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" style="margin-left: 5px;" appearance="fill" *ngIf="formularioDashboard.value.buscarPor == 'año' || formularioDashboard.value.buscarPor =='mes'|| formularioDashboard.value.buscarPor =='vendedor' ">
+            <mat-label>Año</mat-label>
+            <mat-select formControlName="año" placeholder="Especifica el año">
+                <mat-option *ngFor="let item of listaAnos" [value]="item.value">
+                    {{item.desripcion}}
+                </mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <button class="boton" style="margin-left: 8px;" mat-raised-button color="primary"
+                    [disabled]="formularioDashboard.invalid"
+                    *ngIf="formularioDashboard.value.buscarPor != 'productos'"
+                    type="submit"
+                    >
+                        Visualizar
+                        <mat-icon class="buton">dashboard</mat-icon>
+                        
+                        
+                </button>
+</form>
+<mat-card-footer>
+    <mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+</mat-card-footer>
+
+</mat-card>
+
+
+<mat-card *ngIf="formularioDashboard.value.buscarPor == 'intervalo' " style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">payments</mat-icon>
+                        </div>
+                        <mat-card-title>Ingresos</mat-card-title>
+                        <mat-card-subtitle>Bs/. {{totalIngresos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">account_balance_wallet</mat-icon>
+                        </div>
+                        <mat-card-title>Ventas</mat-card-title>
+                        <mat-card-subtitle>{{totalVentas}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">collections_bookmark</mat-icon>
+                        </div>
+                        <mat-card-title>Productos</mat-card-title>
+                        <mat-card-subtitle>{{totalProductos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-card style="margin-top: 15px;">
+            <mat-card-content>
+                <div style="width: 100%; height: 400px;">
+                   <canvas id="chartBarras"></canvas> 
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="formularioDashboard.value.buscarPor == 'mes' " style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">payments</mat-icon>
+                        </div>
+                        <mat-card-title>Ingresos</mat-card-title>
+                        <mat-card-subtitle>Bs/. {{totalIngresos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">account_balance_wallet</mat-icon>
+                        </div>
+                        <mat-card-title>Ventas</mat-card-title>
+                        <mat-card-subtitle>{{totalVentas}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">collections_bookmark</mat-icon>
+                        </div>
+                        <mat-card-title>Productos</mat-card-title>
+                        <mat-card-subtitle>{{totalProductos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-card style="margin-top: 15px;">
+            <mat-card-content>
+                <div style="width: 100%; height: 400px;">
+                   <canvas id="chartBarras"></canvas> 
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="formularioDashboard.value.buscarPor == 'año' " style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">payments</mat-icon>
+                        </div>
+                        <mat-card-title>Ingresos Anuales</mat-card-title>
+                        <mat-card-subtitle>Bs/. {{totalIngresos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">account_balance_wallet</mat-icon>
+                        </div>
+                        <mat-card-title>Ventas Anuales</mat-card-title>
+                        <mat-card-subtitle>{{totalVentas}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">collections_bookmark</mat-icon>
+                        </div>
+                        <mat-card-title>Productos</mat-card-title>
+                        <mat-card-subtitle>{{totalProductos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-card style="margin-top: 15px;">
+            <mat-card-content>
+                <div style="width: 100%; height: 400px;">
+                   <canvas id="chartBarras"></canvas> 
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="formularioDashboard.value.buscarPor == 'vendedor' " style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">payments</mat-icon>
+                        </div>
+                        <mat-card-title>Ingresos Anuales</mat-card-title>
+                        <mat-card-subtitle>Bs/. {{totalIngresos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">account_balance_wallet</mat-icon>
+                        </div>
+                        <mat-card-title>Ventas Anuales</mat-card-title>
+                        <mat-card-subtitle>{{totalVentas}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="card-info">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon color="primary">perm_identity</mat-icon>
+                        </div>
+                        <mat-card-title>Vendedores</mat-card-title>
+                        <mat-card-subtitle>{{totalProductos}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-card style="margin-top: 15px;">
+            <mat-card-content>
+                <div style="width: 100%; height: 400px;">
+                   <canvas id="chartBarras"></canvas> 
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="formularioDashboard.value.buscarPor == 'productos' " style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content>
+        <mat-card style="margin-top: 15px;">
+            <mat-card-content>
+                <div style="width: 100%; height: 400px;">
+                   <canvas id="chartBarras"></canvas> 
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card-content>
+
+</mat-card>

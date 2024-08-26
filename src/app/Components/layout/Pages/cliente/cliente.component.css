@@ -1,0 +1,40 @@
+table{
+    width:100%;
+}
+
+.mat-for-field{
+    font-size: 20px;
+    width: 100%;
+}
+
+.body{
+    display:block;
+    place-items: center;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+.boton{
+    float: right;
+    font-size: 16px;
+    height: 40px;
+}
+
+.buscador{
+    width: 300px;
+    margin-right: 3px;
+    font-size: 16px;
+}
+
+.mat-cell{
+    font-size: 16px;
+}
+
+.full-width{
+    font-size: 16px;
+}
+
+.mat-header-cell{
+    font-size: 16px;
+}    

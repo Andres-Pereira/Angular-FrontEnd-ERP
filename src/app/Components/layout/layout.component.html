@@ -1,0 +1,41 @@
+
+<mat-toolbar color="primary" style="height: 85px;">
+    <mat-toolbar-row style="height: 15px;"></mat-toolbar-row>
+    <mat-toolbar-row>
+        
+        <button mat-icon-button (click)="sidenav.toggle();" matTooltip="Desplegar/Ocultar Menu" [matTooltipShowDelay]=500>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <img style="margin-bottom: 5px;" src="assets/header.png" width="280px;" height="60px">
+
+        <span style="flex: 1 1 auto;"></span>
+        <label style="font-size: 14px;">
+            {{nombreUsuario}} | {{rolUsuario}}
+        </label>
+        <button mat-icon-button style="margin-right: 15px;" (click)="cerrarSesion()" matTooltip="Cerrar Sesion" [matTooltipShowDelay]=500>
+            <mat-icon>logout</mat-icon>
+        </button>
+    </mat-toolbar-row>   
+
+</mat-toolbar>
+
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav opened="true" mode="side" style="width: 270px;">
+        <mat-nav-list>
+            
+            <mat-list-item *ngFor="let menu of listaMenus" [routerLink]="menu.url">
+                <mat-icon mat-list-icon>{{menu.icono}}</mat-icon>
+                <div mat-line style="font-size: 18px;">{{menu.nombre}}</div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height:90vh;">
+            <router-outlet></router-outlet>
+        </div>
+
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

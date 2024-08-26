@@ -1,0 +1,55 @@
+<h2 style="font-size: 22px;" matDialogTitle>{{tituloAccion}} Activo</h2>
+
+<mat-dialog-content>
+
+    <form [formGroup]="formularioActivo">
+        <mat-grid-list cols="1" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                    <mat-icon matSuffix>fit_screen</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Marca</mat-label>
+                    <input matInput autocomplete="off" formControlName="marca">
+                    <mat-icon matSuffix>loyalty</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Código</mat-label>
+                    <input matInput autocomplete="off" formControlName="codigo">
+                    <mat-icon matSuffix>info</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+      
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Estado</mat-label>
+                    <mat-select formControlName="esActivo">
+                    <mat-option value="1">Disponible</mat-option>
+                    <mat-option value="0">Mantenimiento</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close="warn" color="warn">Volver</button>
+    <button mat-raised-button color="primary"
+    [disabled]="formularioActivo.invalid"
+    (click)="guardarEditar_Activo()"
+    >{{botonAccion}}</button>
+    
+</mat-dialog-actions>
+<mat-card-footer>
+    <mat-progress-bar style="margin-top: 15px;" mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+</mat-card-footer>

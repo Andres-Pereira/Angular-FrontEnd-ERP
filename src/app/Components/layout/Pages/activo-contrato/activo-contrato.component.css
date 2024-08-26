@@ -1,0 +1,33 @@
+table{
+    width:100%;
+}
+
+.mat-for-field{
+    font-size: 20px;
+    width: 100%;
+}
+
+.boton{
+    font-size: 16px;
+    height: 40px;
+    margin-left: 5px;
+    margin-bottom: 30px;
+}
+
+.mat-cell{
+    font-size: 16px;
+}
+
+.full-width{
+    font-size: 16px;
+    margin-right: 3px;
+}
+
+.mat-header-cell{
+    font-size: 16px;
+}    
+
+.icon
+{
+    color: #388E3C;
+}

@@ -1,0 +1,10 @@
+table{
+    width: 100%;
+}
+.mat-cell{
+    font-size: 14px;
+}
+
+.mat-header-cell{
+    font-size: 14px;
+}   

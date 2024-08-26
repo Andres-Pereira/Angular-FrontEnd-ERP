@@ -1,0 +1,31 @@
+<h2 style="font-size: 22px;">Actualiza la fecha del contrato</h2>
+
+<mat-dialog-content style="height: 120px;">
+
+    <form [formGroup]="formularioFecha">
+        <mat-grid-list cols="1" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field style="margin-top: 50px; margin-bottom: 20px;" appearance="outline">
+                    <mat-label>Fecha de expiración</mat-label>
+                    <input matInput autocomplete="off" formControlName="fechaCaducidad" [matDatepicker]="picker1" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 47 && event.charCode <= 57">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close="warn" color="warn">Volver</button>
+    <button mat-raised-button color="primary"
+    [disabled]="formularioFecha.invalid"
+    (click)="fecha_Activo()"
+    >Actualizar</button>
+    
+</mat-dialog-actions>
+
+<mat-card-footer>
+    <mat-progress-bar style="margin-top: 15px;" mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+</mat-card-footer>

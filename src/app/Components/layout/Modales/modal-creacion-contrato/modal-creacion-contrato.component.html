@@ -1,0 +1,56 @@
+<h2 style="font-size: 22px;">Contrato de activo</h2>
+
+<mat-dialog-content>
+
+    <form [formGroup]="formularioContrato">
+        <mat-grid-list cols="1" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Cliente</mat-label>
+                    <input matInput type="text" placeholder="Buscar..." [matAutocomplete]="auto2" formControlName = "cliente">
+                    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete" 
+                    >
+                    <mat-option *ngFor="let op of listaClientesFiltro" [value]="op.nombreCompleto">
+                        {{op.nombreCompleto}}
+                    </mat-option>
+                </mat-autocomplete>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Encargado</mat-label>
+                    <mat-select formControlName = "encargado">
+                        <mat-option *ngFor="let op of listaUsuarios" [value]="op.nombreCompleto">
+                          {{op.nombreCompleto}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field style="margin-top: 30px; margin-bottom: 20px;" appearance="outline">
+                    <mat-label>Fecha de expiración</mat-label>
+                    <input matInput autocomplete="off" formControlName="fechaCaducidad" [matDatepicker]="picker1" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 47 && event.charCode <= 57">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close="warn" color="warn">Volver</button>
+    <button mat-raised-button color="primary"
+    [disabled]="formularioContrato.invalid"
+    (click)="contrato_Activo()"
+    >{{botonAccion}}</button>
+    
+</mat-dialog-actions>
+
+<mat-card-footer>
+    <mat-progress-bar style="margin-top: 15px;" mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+</mat-card-footer>

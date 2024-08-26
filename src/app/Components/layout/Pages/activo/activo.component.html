@@ -1,0 +1,74 @@
+<h1 style="margin: 20px 0px 0px 40px;">Activos libres</h1>
+<mat-card style="margin: 20px 40px 40px 40px">
+
+    <mat-card-content class="dashboard-card-content">
+        <mat-form-field class="buscador" appearance="fill">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="aplicarFiltroTabla($event)" #input>
+        </mat-form-field>
+
+        <button class="boton" mat-raised-button color="primary" (click)="nuevoActivo()">
+            <mat-icon mat-list-icon >add</mat-icon> Nuevo Activo 
+        
+        </button>
+
+        <div class="mat-elevation">
+            <table mat-table matSort [dataSource]="dataListaActivos">
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="marca">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Marca</th>
+                    <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="codigo">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Código</th>
+                    <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="estado" >
+                    <th mat-header-cell *matHeaderCellDef> Estado</th>
+                    <td mat-cell *matCellDef="let element"> {{element.esActivo == 1? 'Disponible':'Mantenimiento'}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef style="width: 120px;"></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" (click)="editarActivo(element)" matTooltip="Editar Activo" [matTooltipShowDelay]=500>
+                            <mat-icon>edit</mat-icon> 
+                        </button>
+                        <button mat-icon-button color="warn" (click)="eliminarActivo(element)" matTooltip="Eliminar Activo" [matTooltipShowDelay]=500>
+                            <mat-icon>delete</mat-icon> 
+                        </button>
+                        <button class="icon" mat-icon-button color="primary"  (click)="contratoActivo(element)"
+                            matTooltip="Adherir un contrato a este activo." [matTooltipShowDelay]=500
+                        >
+                            <mat-icon>assignment_returned</mat-icon> 
+                        </button>
+                    </td>
+                  </ng-container>
+                  
+                  <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+
+                  <tr class="mat-row"*matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay datos que coincidan con la búsqueda.</td>
+                  </tr>
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons>
+
+            </mat-paginator>
+
+
+        </div>
+
+    
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>
+

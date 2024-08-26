@@ -1,0 +1,37 @@
+mat-form-field{
+    margin-right: 10px;
+}
+
+table{
+    width: 100%;
+}
+
+input-filter{
+    width: 100%;
+    font-size: 14px;
+}
+
+.boton{
+    font-size: 16px;
+    height: 40px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.buscador{
+    width: 300px;
+    margin-right: 3px;
+    font-size: 16px;
+}
+
+.mat-cell{
+    font-size: 16px;
+}
+
+.full-width{
+    font-size: 16px;
+}
+
+.mat-header-cell{
+    font-size: 16px;
+}    

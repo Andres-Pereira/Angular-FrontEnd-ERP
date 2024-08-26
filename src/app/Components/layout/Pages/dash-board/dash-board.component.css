@@ -1,0 +1,27 @@
+.card-info{
+    width: 80%;
+}
+
+.mat-icon{
+    font-size: 50px !important;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.full-width{
+    font-size: 16px;
+}
+
+.boton{
+    font-size: 16px;
+    height: 45px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.buton{
+    font-size: 25px !important;
+    height: 25px !important;
+    width: 25px !important;
+}
+
