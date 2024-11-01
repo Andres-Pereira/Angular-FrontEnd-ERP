@@ -1,4 +1,2 @@
-# AppSistemaVenta
-
-Frontend del proyecto ERP para la empresa "S3i: Tecnologias e impresiones". El ERP tiene un modulo de graficas, ventas, seguimiento de activos y registro de usuarios y clientes. El programa utiliza roles protegidos por un inicio de sesion y guardas para los enlaces.
-Desarrollado en Angular y puesto en produccion con Firebase.
+Frontend of the ERP project for the company "S3i: Technologies and Insights." The ERP includes modules for charts, sales, asset tracking, and user and client registration. 
+The program uses role-based access secured by a login system and guards for the links. Developed in Angular and deployed with Firebase.
